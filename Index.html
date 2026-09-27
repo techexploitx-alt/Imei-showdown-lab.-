@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IMEI SHOWDOWN LAB</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#17202c 0%,#080b10 45%,#050608 100%);
+    color:#fff;
+}
+
+.navbar{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    border-bottom:1px solid #202733;
+    background:rgba(5,7,10,.94);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.brand{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:1px;
+    line-height:1.05;
+}
+
+.brand span{
+    color:#00d9ff;
+}
+
+.nav-buttons{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-btn{
+    text-decoration:none;
+    color:#fff;
+    border:1px solid #303a47;
+    padding:10px 16px;
+    border-radius:9px;
+    font-size:13px;
+    transition:.2s;
+}
+
+.nav-btn:hover{
+    border-color:#00c8ed;
+    color:#00d9ff;
+}
+
+.support-btn{
+    background:#229ED9;
+    border-color:#229ED9;
+}
+
+.support-btn:hover{
+    background:#168dcc;
+    color:#fff;
+}
+
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:80px 20px 45px;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 13px;
+    border:1px solid #174b59;
+    border-radius:30px;
+    color:#00d9ff;
+    background:#07151a;
+    font-size:12px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:clamp(36px,8vw,65px);
+    line-height:1;
+    font-weight:900;
+}
+
+h1 span{
+    color:#00d9ff;
+}
+
+.hero p{
+    max-width:650px;
+    margin:20px auto 0;
+    color:#8e9aaa;
+    line-height:1.6;
+}
+
+
+/* DOWNLOAD */
+
+.download-box{
+    width:min(92%,520px);
+    margin:35px auto;
+    padding:28px;
+    background:rgba(15,19,26,.95);
+    border:1px solid #28313d;
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.tool-icon{
+    width:70px;
+    height:70px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:#080d13;
+    border:1px solid #303b48;
+    font-size:30px;
+}
+
+.tool-name{
+    margin-top:18px;
+    font-size:22px;
+    font-weight:800;
+}
+
+.tool-info{
+    margin-top:8px;
+    color:#7f8997;
+    font-size:13px;
+}
+
+.download-btn{
+    display:block;
+    margin-top:22px;
+    width:100%;
+    padding:16px;
+    border-radius:12px;
+    background:#00c8ed;
+    color:#001017;
+    text-decoration:none;
+    font-weight:900;
+    font-size:15px;
+    transition:.2s;
+}
+
+.download-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(0,200,237,.25);
+}
+
+.note{
+    margin-top:13px;
+    font-size:11px;
+    color:#606b79;
+}
+
+
+/* PRICING */
+
+.pricing-section{
+    width:min(92%,1000px);
+    margin:80px auto 100px;
+    scroll-margin-top:90px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+}
+
+.section-title span{
+    color:#00d9ff;
+}
+
+.section-subtitle{
+    text-align:center;
+    max-width:650px;
+    margin:14px auto 45px;
+    color:#7f8997;
+    line-height:1.6;
+}
+
+.pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+.price-card{
+    position:relative;
+    padding:32px 30px;
+    background:#0e1218;
+    border:1px solid #28313d;
+    border-radius:22px;
+    transition:.25s;
+}
+
+.price-card:hover{
+    transform:translateY(-4px);
+    border-color:#00bfe5;
+    box-shadow:0 15px 45px rgba(0,200,237,.10);
+}
+
+.price-card.popular{
+    border:2px solid #00c8ed;
+    box-shadow:0 15px 50px rgba(0,200,237,.10);
+}
+
+.popular-badge{
+    position:absolute;
+    right:28px;
+    top:-16px;
+    background:#00c8ed;
+    color:#001017;
+    padding:8px 18px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:900;
+}
+
+.plan-name{
+    color:#9aa4b3;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+.price{
+    margin-top:18px;
+    font-size:50px;
+    font-weight:900;
+}
+
+.price span{
+    font-size:16px;
+    color:#7f8997;
+    font-weight:500;
+}
+
+.validity{
+    margin-top:8px;
+    color:#00c8ed;
+    font-size:14px;
+    font-weight:700;
+}
+
+.plan-features{
+    list-style:none;
+    margin-top:28px;
+}
+
+.plan-features li{
+    margin:17px 0;
+    color:#9ba5b4;
+    font-size:14px;
+}
+
+.plan-features li::before{
+    content:"✓";
+    color:#00d9ff;
+    font-size:18px;
+    font-weight:900;
+    margin-right:12px;
+}
+
+.get-id{
+    display:block;
+    width:100%;
+    margin-top:28px;
+    padding:16px;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    border:1px solid #303a47;
+    border-radius:12px;
+    font-weight:900;
+    transition:.2s;
+}
+
+.get-id:hover{
+    background:#00c8ed;
+    color:#001017;
+    border-color:#00c8ed;
+}
+
+.price-card.popular .get-id{
+    background:#00c8ed;
+    color:#001017;
+    border-color:#00c8ed;
+}
+
+.price-card.popular .get-id:hover{
+    background:#08b6d7;
+}
+
+
+/* FEATURES */
+
+.features{
+    width:min(92%,900px);
+    margin:50px auto 80px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.card{
+    padding:30px 28px;
+    background:#0e1218;
+    border:1px solid #222b35;
+    border-radius:18px;
+    min-height:230px;
+}
+
+.card-icon{
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.card h3{
+    font-size:20px;
+}
+
+.card p{
+    margin-top:10px;
+    color:#737e8c;
+    font-size:14px;
+    line-height:1.6;
+}
+
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid #202733;
+    padding:30px 20px;
+    text-align:center;
+    color:#5d6876;
+    font-size:11px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+    .navbar{
+        padding:0 15px;
+    }
+
+    .brand{
+        font-size:15px;
+    }
+
+    .nav-buttons{
+        gap:5px;
+    }
+
+    .nav-btn{
+        padding:9px 10px;
+        font-size:10px;
+    }
+
+    .pricing-grid{
+        grid-template-columns:1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding-top:60px;
+    }
+
+    .section-title{
+        font-size:29px;
+    }
+
+    .price{
+        font-size:45px;
+    }
+}
+
+@media(max-width:430px){
+
+    .brand{
+        max-width:125px;
+    }
+
+    .nav-btn{
+        padding:8px 8px;
+        font-size:9px;
+    }
+
+    .support-btn{
+        padding-left:11px;
+        padding-right:11px;
+    }
+
+    .download-box{
+        padding:25px 20px;
+    }
+
+    .price-card{
+        padding:28px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+    <div class="brand">
+        IMEI <span>SHOWDOWN</span> LAB
+    </div>
+
+    <div class="nav-buttons">
+
+        <a class="nav-btn" href="#pricing">
+            PRICING
+        </a>
+
+        <a class="nav-btn" href="#download">
+            DOWNLOAD
+        </a>
+
+        <a
+            class="nav-btn support-btn"
+            href="https://t.me/Imeishowdownlab"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            SUPPORT
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        JIO IMEI STATUS LAB
+    </div>
+
+    <h1>
+        IMEI <span>SHOWDOWN</span> LAB
+    </h1>
+
+    <p>
+        Professional IMEI utility platform for authorized
+        Jio device-status lookup and technician tools.
+    </p>
+
+
+    <!-- DOWNLOAD CARD -->
+
+    <div class="download-box" id="download">
+
+        <div class="tool-icon">
+            🛠️
+        </div>
+
+        <div class="tool-name">
+            ISL TOOL
+        </div>
+
+        <div class="tool-info">
+            Android APK • IMEI SHOWDOWN LAB
+        </div>
+
+        <a
+            class="download-btn"
+            href="https://www.mediafire.com/file/mhq5lfcveg1nu4l/ISL.apk/file"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            ↓ DOWNLOAD ISL TOOL
+        </a>
+
+        <div class="note">
+            Download opens the official MediaFire file page.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRICING -->
+
+<section class="pricing-section" id="pricing">
+
+    <h2 class="section-title">
+        ISL <span>PRICING</span>
+    </h2>
+
+    <p class="section-subtitle">
+        Activate an ISL account according to your required
+        subscription period.
+    </p>
+
+
+    <div class="pricing-grid">
+
+
+        <!-- MONTHLY -->
+
+        <div class="price-card popular">
+
+            <div class="popular-badge">
+                POPULAR
+            </div>
+
+            <div class="plan-name">
+                MONTHLY
+            </div>
+
+            <div class="price">
+                ₹300 <span>/ ID</span>
+            </div>
+
+            <div class="validity">
+                30 DAYS VALIDITY
+            </div>
+
+            <ul class="plan-features">
+                <li>1 Account ID</li>
+                <li>30 Days Access</li>
+                <li>Secure Login</li>
+                <li>Support Included</li>
+            </ul>
+
+            <a
+                class="get-id"
+                href="https://t.me/Imeishowdownlab"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                GET ID — ₹300
+            </a>
+
+        </div>
+
+
+        <!-- QUARTERLY -->
+
+        <div class="price-card">
+
+            <div class="plan-name">
+                QUARTERLY
+            </div>
+
+            <div class="price">
+                ₹800 <span>/ ID</span>
+            </div>
+
+            <div class="validity">
+                90 DAYS VALIDITY
+            </div>
+
+            <ul class="plan-features">
+                <li>1 Account ID</li>
+                <li>90 Days Access</li>
+                <li>Secure Login</li>
+                <li>Support Included</li>
+            </ul>
+
+            <a
+                class="get-id"
+                href="https://t.me/Imeishowdownlab"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                GET ID — ₹800
+            </a>
+
+        </div>
+
+
+        <!-- HALF YEAR -->
+
+        <div class="price-card">
+
+            <div class="plan-name">
+                HALF YEAR
+            </div>
+
+            <div class="price">
+                ₹1,500 <span>/ ID</span>
+            </div>
+
+            <div class="validity">
+                180 DAYS VALIDITY
+            </div>
+
+            <ul class="plan-features">
+                <li>1 Account ID</li>
+                <li>180 Days Access</li>
+                <li>Secure Login</li>
+                <li>Support Included</li>
+            </ul>
+
+            <a
+                class="get-id"
+                href="https://t.me/Imeishowdownlab"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                GET ID — ₹1,500
+            </a>
+
+        </div>
+
+
+        <!-- YEARLY -->
+
+        <div class="price-card">
+
+            <div class="plan-name">
+                YEARLY
+            </div>
+
+            <div class="price">
+                ₹2,500 <span>/ ID</span>
+            </div>
+
+            <div class="validity">
+                365 DAYS VALIDITY
+            </div>
+
+            <ul class="plan-features">
+                <li>1 Account ID</li>
+                <li>365 Days Access</li>
+                <li>Secure Login</li>
+                <li>Support Included</li>
+            </ul>
+
+            <a
+                class="get-id"
+                href="https://t.me/Imeishowdownlab"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                GET ID — ₹2,500
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <p class="section-subtitle" style="margin-top:35px;margin-bottom:0;">
+        Subscription access is subject to applicable laws,
+        authorized data sources and service availability.
+    </p>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
+    <div class="card">
+
+        <div class="card-icon">
+            📱
+        </div>
+
+        <h3>
+            IMEI Lookup
+        </h3>
+
+        <p>
+            Enter an IMEI and check status through an
+            authorized backend service.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            🌐
+        </div>
+
+        <h3>
+            Jio Support
+        </h3>
+
+        <p>
+            Designed for authorized Jio-related
+            device-status workflows.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">
+            🛠️
+        </div>
+
+        <h3>
+            ISL Tool
+        </h3>
+
+        <p>
+            Download the Android ISL technician utility
+            directly from the linked distribution page.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 IMEI SHOWDOWN LAB • powered by GSM ANWARUL 
+</footer>
+
+
+</body>
+  </html>
